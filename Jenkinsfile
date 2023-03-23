@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}",
-                        '-f ./Dockerfile .')
+                        '-f Dockerfile .')
                 }
             }
         }
