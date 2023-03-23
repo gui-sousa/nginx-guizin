@@ -1,5 +1,5 @@
-node {
-    //agent any
+pipeline {
+    agent any
 
     stages {
         stage('Atualizando Código') {
