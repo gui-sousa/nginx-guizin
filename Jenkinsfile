@@ -11,8 +11,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    dockerapp = docker.build("guisousa/ngninx-guizin:${env.BUILD_ID}",
-                        '-f ./Dockerfile .')
+                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}",
+                        '-f Dockerfile .')
                 }
             }
         }
