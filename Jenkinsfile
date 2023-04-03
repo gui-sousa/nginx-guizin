@@ -11,8 +11,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}",
-                        '-f Dockerfile')
+                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}", '-f Dockerfile .')
                 }
             }
         }
@@ -24,9 +23,36 @@ pipeline {
                         dockerapp.push('latest')
                         dockerapp.push("{$env.BUILD_ID}")
                     }
-                    
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            script {
+                currentBuild.result = 'SUCCESS'
+            }
+        }
+
+        success {
+            echo 'Pipeline executada com sucesso!'
+        }
+
+        failure {
+            echo 'A execução da pipeline falhou.'
+        }
+
+        unstable {
+            echo 'A execução da pipeline foi instável.'
+        }
+
+        aborted {
+            echo 'A execução da pipeline foi abortada.'
+        }
+
+        notBuilt {
+            echo 'Nenhum build foi executado nesta pipeline.'
         }
     }
 }
