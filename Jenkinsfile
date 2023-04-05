@@ -4,15 +4,14 @@ pipeline {
     stages {
         stage('Atualizando Código') {
             steps {
-                git url: 'https://github.com/gui-sousa/nginx-guizin.git', branch: 'master'
+                git branch: 'master', url: 'https://github.com/gui-sousa/nginx-guizin.git'
             }
         }
 
         stage('Docker Build') {
             steps {
                 script {
-                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}",
-                        '-f Dockerfile .')
+                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}", "-f Dockerfile .")
                 }
             }
         }
@@ -21,11 +20,12 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-gsousa') {
-                        dockerapp.push("{$env.BUILD_ID}")
-                        dockerapp.push("{$env.BUILD_ID}")
+                        dockerapp.push('latest')
+                        dockerapp.push(env.BUILD_ID)
                     }
                 }
             }
         }
     }
+}
 
