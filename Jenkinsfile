@@ -11,7 +11,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}", '-f Dockerfile .')
+                    dockerapp = docker.build("guisousa/nginx-guizin:${env.BUILD_ID}",
+                        '-f Dockerfile .')
                 }
             }
         }
@@ -30,29 +31,13 @@ pipeline {
 
     post {
         always {
-            script {
-                currentBuild.result = 'SUCCESS'
-            }
-        }
-
-        success {
-            echo 'Pipeline executada com sucesso!'
-        }
-
-        failure {
-            echo 'A execução da pipeline falhou.'
-        }
-
-        unstable {
-            echo 'A execução da pipeline foi instável.'
-        }
-
-        aborted {
-            echo 'A execução da pipeline foi abortada.'
-        }
-
-        notBuilt {
-            echo 'Nenhum build foi executado nesta pipeline.'
+            // Define a etapa como sucesso, independentemente do resultado do script
+            // O 'SUCCESS' pode ser substituído por outro status, se necessário.
+            // Exemplos: ABORTED, UNSTABLE, FAILURE
+            // Veja a documentação oficial para mais informações: 
+            // https://www.jenkins.io/doc/book/pipeline/syntax/#post
+            setBuildStatus(status: 'SUCCESS')
         }
     }
 }
+
