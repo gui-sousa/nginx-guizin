@@ -29,15 +29,3 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Define a etapa como sucesso, independentemente do resultado do script
-            // O 'SUCCESS' pode ser substituído por outro status, se necessário.
-            // Exemplos: ABORTED, UNSTABLE, FAILURE
-            // Veja a documentação oficial para mais informações: 
-            // https://www.jenkins.io/doc/book/pipeline/syntax/#post
-            setBuildStatus(status: 'SUCCESS')
-        }
-    }
-}
-
