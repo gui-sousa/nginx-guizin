@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-project
+  template:
+    metadata:
+      labels:
+        app: nginx-project
+    spec:
+      containers:
+        - name: nginx
+          image: guisousa/nginx-guizin:latest
+          ports:
+          - name: http-port
+            containerPort: 80

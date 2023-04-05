@@ -26,6 +26,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy Kubernetes') {
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
+            }
+
+            steps {
+                kubernetesDeploy(configs: '**/k8s/**', kubeconfigId:'k0s-vanuatu')
+            }
+        }
+        
     }
 }
 
