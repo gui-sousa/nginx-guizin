@@ -35,7 +35,7 @@ pipeline {
             }
 
             steps {
-                kubernetesDeploy(configs: 'service.yaml', kubeconfigId:'k0s-vanuatu')
+                kubernetesDeploy(configs: 'deployment.yaml', kubeconfigId:'k0s-vanuatu')
             }
         }
         
