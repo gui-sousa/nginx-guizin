@@ -4,7 +4,7 @@ metadata:
   name: nginx-service
   namespace: default
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: http-port
       port: 8082
