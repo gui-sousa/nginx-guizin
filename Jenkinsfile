@@ -28,14 +28,11 @@ pipeline {
         }
 
         stage('Deploy Kubernetes') {
-            agent {
-                kubernetes {
-                    cloud 'kubernetes'
-                }
-            }
-
-            steps {
-                kubernetesDeploy(configs: 'deployment.yaml', kubeconfigId:'k0s-vanuatu')
+          withKubeConfig([credentialsId: 'k0s-vanuatu']) {
+              sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+              sh 'chmod u+x ./kubectl'
+              sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/service.yaml'
+              sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/deployment.yaml'
             }
         }
         
