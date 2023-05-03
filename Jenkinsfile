@@ -52,9 +52,9 @@ pipeline {
             }
         }
 
-        }
-
-        
+      }  
     }
+
+    sandbox false
 }
 
