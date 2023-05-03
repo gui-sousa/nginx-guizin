@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        sandbox(false)
+    }
+
     stages {
         stage('Atualizando Código') {
             steps {
@@ -54,7 +58,5 @@ pipeline {
 
       }  
     }
-
-    sandbox false
 }
 
