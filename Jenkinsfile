@@ -41,15 +41,7 @@ pipeline {
 
       stage('Test Nginx Page') {
         steps {
-            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/'
-            script {
-                def responseStatus = currentBuild.rawBuild.getLog(10).findAll(/HTTP response status: (\d+)/)[0][1]
-                if (responseStatus == '200') {
-                    echo 'Website is up!'
-                } else {
-                    error 'Website is down!'
-                }
-            }
+            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200'
         }
 
       }  
