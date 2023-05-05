@@ -5,6 +5,12 @@ pipeline {
         CHAT_TOKEN = credentials('google-chat-guisousa')
     }
 
+    post {
+        always {
+            hangoutsNotify message: "⚙️ Build Iniciado!", token: "$CHAT_TOKEN", threadByJob: false
+        }
+    }
+
     stages {
         stage('Atualizando Código') {
             steps {
@@ -52,10 +58,6 @@ pipeline {
     }
 
     post {
-        always {
-            hangoutsNotify message: "⚙️ Build Iniciado!", token: "$CHAT_TOKEN", threadByJob: false
-        }
-
         success {
             hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false
         }
