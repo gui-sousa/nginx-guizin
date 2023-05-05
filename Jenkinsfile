@@ -13,9 +13,9 @@ pipeline {
 
             post {
                 always {
-                   hangoutsNotify message: "Iniciando build", token: "$CHAT_TOKEN", threadByJob: false
-        }
-    }
+                   hangoutsNotify message: "⚙️ Iniciando build\n Em: $(date -d @${BUILD_ID} '+%Y-%m-%d %H:%M:%S')", token: "$CHAT_TOKEN", threadByJob: false
+                }
+            }
         }
 
         stage('Docker Build') {
