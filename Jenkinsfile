@@ -7,7 +7,7 @@ pipeline {
 
     post {
         always {
-            hangoutsNotify message: "⚙️ Build Iniciado!", token: "$CHAT_TOKEN", threadByJob: false
+            hangoutsNotify(message: "Iniciando build", token: CHAT_TOKEN, threadByJob: false, status: "STARTED")
         }
     }
 
@@ -38,33 +38,29 @@ pipeline {
         }
 
         stage('Deploy Kubernetes') {
-          steps {
-            withKubeConfig([credentialsId: 'k0s-vanuatu']) {
-                sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                sh 'chmod u+x ./kubectl'
-                sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/service.yaml'
-                sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/deployment.yaml'
+            steps {
+                withKubeConfig([credentialsId: 'k0s-vanuatu']) {
+                    sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+                    sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/service.yaml'
+                    sh './kubectl apply -f https://raw.githubusercontent.com/gui-sousa/nginx-guizin/master/deployment.yaml'
+                }
             }
         }
 
-      }
-
-      stage('Test Nginx Page') {
-        steps {
-            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Guizin!'
+        stage('Test Nginx Page') {
+            steps {
+                httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Guizin!'
+            }
         }
-
-      }  
     }
 
     post {
         success {
-            hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false
+            hangoutsNotify(message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: CHAT_TOKEN, threadByJob: false, status: "SUCCESS")
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false 
+            hangoutsNotify(message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: CHAT_TOKEN, threadByJob: false, status: "FAILURE")
         }
     }
 }
-
