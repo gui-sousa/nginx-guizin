@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        CHAT_TOKEN = credentials('google-chat-guisousa')
+    }
+
     stages {
         stage('Atualizando Código') {
             steps {
@@ -49,11 +53,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify message: "✔ Deu Certo!", token: "N1SOrlYIEbZOBWUduz7Wj7rRW", threadByJob: false
+            hangoutsNotify message: "✔ Deu Certo!", token: "CHAT_TOKEN", threadByJob: false
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!", token: "N1SOrlYIEbZOBWUduz7Wj7rRW", threadByJob: false 
+           hangoutsNotify message: "❌ Deu Errado!", token: "CHAT_TOKEN", threadByJob: false 
         }
     }
 }
