@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         CHAT_TOKEN = credentials('google-chat-guisousa')
+        USER = currentBuild.getBuildCauses()[0]?.getShortDescription()
     }
 
     stages {
@@ -53,11 +54,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos\n🤖 Responsável: ${currentBuild.culprit}", token: "$CHAT_TOKEN", threadByJob: false
+            hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos\n🤖 Responsável: $USER", token: "$CHAT_TOKEN", threadByJob: false
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos\n🤖 Responsável: ${currentBuild.culprit}", token: "$CHAT_TOKEN", threadByJob: false 
+           hangoutsNotify message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos\n🤖 Responsável: $USER", token: "$CHAT_TOKEN", threadByJob: false 
         }
     }
 }
