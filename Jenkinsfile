@@ -41,7 +41,7 @@ pipeline {
 
       stage('Test Nginx Page') {
         steps {
-            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Guizin!'
+            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Thiaguera!'
         }
 
       }  
