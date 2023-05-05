@@ -5,17 +5,17 @@ pipeline {
         CHAT_TOKEN = credentials('google-chat-guisousa')
     }
 
-    post {
-        always {
-            hangoutsNotify message: "Iniciando build", token: "$CHAT_TOKEN", threadByJob: false
-        }
-    }
-
     stages {
         stage('Atualizando Código') {
             steps {
                 git branch: 'master', url: 'https://github.com/gui-sousa/nginx-guizin.git'
             }
+
+            post {
+                always {
+                   hangoutsNotify message: "Iniciando build", token: "$CHAT_TOKEN", threadByJob: false
+        }
+    }
         }
 
         stage('Docker Build') {
