@@ -52,6 +52,10 @@ pipeline {
     }
 
     post {
+        always {
+            hangoutsNotify message: "⚙️ Build Iniciado!", token: "$CHAT_TOKEN", threadByJob: false
+        }
+
         success {
             hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false
         }
