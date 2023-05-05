@@ -53,11 +53,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify message: "✔ Deu Certo!", token: "$CHAT_TOKEN", threadByJob: false
+            hangoutsNotify message: "✔ Deu Certo! Tempo: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!", token: "$CHAT_TOKEN", threadByJob: false 
+           hangoutsNotify message: "❌ Deu Errado! Tempo: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false 
         }
     }
 }
