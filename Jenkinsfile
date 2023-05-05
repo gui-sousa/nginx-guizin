@@ -13,8 +13,8 @@ pipeline {
 
             post {
                 always {
-                   def startTime = currentBuild.startTime.format("dd/MM/yyyy HH:mm:ss")
-                   hangoutsNotify message: "⚙️ Iniciando build\n Em: ${startTime}", token: "$CHAT_TOKEN", threadByJob: false
+                   def currentDate = new Date().format("dd/MM/yyyy HH:mm:ss")
+                   hangoutsNotify message: "⚙️ Iniciando build\n Em: ${currentDate}", token: "$CHAT_TOKEN", threadByJob: false
                 }
             }
         }
