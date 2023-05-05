@@ -7,7 +7,7 @@ pipeline {
 
     post {
         always {
-            hangoutsNotify(message: "Iniciando build", token: "$CHAT_TOKEN", threadByJob: false, status: "STARTED")
+            hangoutsNotify message: "Iniciando build", token: "$CHAT_TOKEN", threadByJob: false
         }
     }
 
@@ -56,11 +56,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify(message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false, status: "SUCCESS")
+            hangoutsNotify message: "✅ Deu Certo!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false
         }
 
         failure {
-            hangoutsNotify(message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false, status: "FAILURE")
+           hangoutsNotify message: "❌ Deu Errado!\n⏰ Tempo de Duração: ${currentBuild.duration / 1000} segundos", token: "$CHAT_TOKEN", threadByJob: false 
         }
     }
 }
