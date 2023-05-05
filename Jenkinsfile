@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        POST_CREDS = credentials('N1SOrlYIEbZOBWUduz7Wj7rRW')
-    }
 
     stages {
         stage('Atualizando Código') {
@@ -52,11 +49,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify message: "✔ Deu Certo!", token: "${POST_CREDS}", threadByJob: false
+            hangoutsNotify message: "✔ Deu Certo!", token: "N1SOrlYIEbZOBWUduz7Wj7rRW", threadByJob: false
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!", token: "${POST_CREDS}", threadByJob: false 
+           hangoutsNotify message: "❌ Deu Errado!", token: "N1SOrlYIEbZOBWUduz7Wj7rRW", threadByJob: false 
         }
     }
 }
