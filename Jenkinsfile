@@ -45,7 +45,7 @@ pipeline {
 
       stage('Test Nginx Page') {
         steps {
-            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Thiaguera!'
+            httpRequest consoleLogResponseBody: true, responseHandle: 'NONE', url: 'http://10.1.81.21:32001/', validResponseCodes: '200', validResponseContent: 'Guizin!'
         }
 
       }  
@@ -53,11 +53,11 @@ pipeline {
 
     post {
         success {
-            hangoutsNotify message: "✔ Deu Certo!", token: "CHAT_TOKEN", threadByJob: false
+            hangoutsNotify message: "✔ Deu Certo!", token: "$CHAT_TOKEN", threadByJob: false
         }
 
         failure {
-           hangoutsNotify message: "❌ Deu Errado!", token: "CHAT_TOKEN", threadByJob: false 
+           hangoutsNotify message: "❌ Deu Errado!", token: "$CHAT_TOKEN", threadByJob: false 
         }
     }
 }
