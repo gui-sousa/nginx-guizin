@@ -13,7 +13,7 @@ pipeline {
 
             post {
                 always {
-                   hangoutsNotify message: "⚙️ Iniciando build\n", token: "$CHAT_TOKEN", threadByJob: false
+                   hangoutsNotify message: "⚙️ Iniciando build\n $BUILD_TIMESTAMP", token: "$CHAT_TOKEN", threadByJob: false
                 }
             }
         }
